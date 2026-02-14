@@ -25,15 +25,24 @@ class Parameter:
         """Creates a new `Parameter` instance.
 
         :param value: The value of the parameter (or a parameter).
-        :param _prev: The previous parameters that led to the creation of
-        the parameter (if any), defaults to None
-        :param _op: The operation that led to the creation of the parameter
-        (if any), defaults to `Operation.MANUAL_CREATION`
+        :param _prev: The previous parameters that led to the creation
+        of the parameter (if any), defaults to None
+        :param _op: The operation that led to the creation of the
+        parameter (if any), defaults to `Operation.MANUAL_CREATION`
         """
         value = value.value if isinstance(value, Parameter) else value
         self.value = value
         self._prev = set(_prev if _prev is not None else tuple())
         self._op = _op
+
+        self.grad = 0.0
+
+    def __repr__(self) -> str:
+        """Provides a string representation of the parameter object.
+
+        :return: The parameter object as a string representation.
+        """
+        return f'Parameter({self.value})'
 
     def __add__(self, param: int | float | Self) -> Self:
         """Adds a given parameter to the current object.
@@ -54,10 +63,3 @@ class Parameter:
         out_param = Parameter(Parameter(param).value * self.value,
                               _prev=(self, param), _op=Operation.MUL)
         return out_param
-
-    def __repr__(self) -> str:
-        """Provides a string representation of the parameter object.
-
-        :return: The parameter object as a string representation.
-        """
-        return f'Parameter({self.value})'
