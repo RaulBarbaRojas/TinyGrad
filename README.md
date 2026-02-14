@@ -1,3 +1,3 @@
 # TinyGrad
 
-Welcome to TinyGrad, a basic module to implement automatic gradient calculation, which is used for neural networks as part of the backpropagation algorithm.
+Welcome to TinyGrad, a basic module to implement automatic gradient calculation, which is used for neural networks as part of the backpropagation algorithm. This project is inspired by [MicroGrad](https://github.com/karpathy/micrograd) and [PyTorch's Autograd](https://docs.pytorch.org/tutorials/beginner/blitz/autograd_tutorial.html), but adds capabilities to build entire neural networks.
