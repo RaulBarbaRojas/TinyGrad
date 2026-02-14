@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "tinygrad"
 version = "0.1.0"
-description = "A simple module that implements automatic gradient computation"
+description = "A tiny, elegant automatic differentiation engine built from scratch."
 readme = "README.md"
 requires-python = ">=3.12"
 authors = [
