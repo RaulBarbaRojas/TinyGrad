@@ -8,11 +8,12 @@ class Parameter:
     """A parameter with automatic gradient tracking.
     """
 
-    def __init__(self, value: int | float) -> None:
+    def __init__(self, value: int | float | Self) -> None:
         """Creates a new `Parameter` instance.
 
-        :param value: The value of the parameter.
+        :param value: The value of the parameter (or a parameter).
         """
+        value = value.value if isinstance(value, Parameter) else value
         self.value = value
 
     def __add__(self, param: int | float | Self) -> Self:
@@ -21,8 +22,15 @@ class Parameter:
         :param param: The parameter to be added.
         :return: A new parameter with the value of the sum.
         """
-        param = param if isinstance(param, Parameter) else Parameter(param)
-        return Parameter(self.value + param.value)
+        return Parameter(self.value + Parameter(param).value)
+
+    def __mul__(self, param: int | float | Self) -> Self:
+        """Multiplies a given parameter by the given object.
+
+        :param param: The parameter to be multiplied with self.
+        :return: A new parameter with the product result.
+        """
+        return Parameter(Parameter(param).value * self.value)
 
     def __repr__(self) -> str:
         """Provides a string representation of the parameter object.
