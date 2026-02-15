@@ -16,6 +16,7 @@ class Operation(str, Enum):
     SUM: str = '+'
     MUL: str = '*'
     TANH: str = 'tanh'
+    RELU: str = 'relu'
 
 
 class Parameter:
@@ -96,6 +97,23 @@ class Parameter:
 
         def _backward():
             self.grad += (1.0 - out_param.value ** 2) * out_param.grad
+
+        out_param._backward = _backward
+
+        return out_param
+
+    def relu(self) -> Self:
+        """Applies the ReLU operation on the given parameter, creating a
+        new one as a result.
+
+        :return: A new parameter with the value obtained after
+        applying the ReLU operation.
+        """
+        out_param = Parameter(0 if self.value < 0 else self.value,
+                              _prev=(self, ), _op=Operation.RELU)
+
+        def _backward() -> None:
+            self.grad += (out_param.value > 0) * out_param.grad
 
         out_param._backward = _backward
 
