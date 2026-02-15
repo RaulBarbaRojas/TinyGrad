@@ -15,9 +15,6 @@ license = "MIT"
 keywords = ["autograd", "grad", "backpropagation", "neural networks"]
 dependencies = []
 
-[project.optional-dependencies]
-dev = []
-
 [tool.hatch.build.targets.wheel]
 packages = ["src/tinygrad"]
 

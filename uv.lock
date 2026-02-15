@@ -1002,7 +1002,6 @@ dev = [
 ]
 
 [package.metadata]
-provides-extras = ["dev"]
 
 [package.metadata.requires-dev]
 dev = [
