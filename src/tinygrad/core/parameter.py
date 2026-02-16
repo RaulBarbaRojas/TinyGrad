@@ -76,6 +76,29 @@ class Parameter:
         """
         return self + param
 
+    def __neg__(self) -> Self:
+        """Multiplies the current value by -1.
+
+        :return: The negative value of the current parameter.
+        """
+        return self * -1
+
+    def __sub__(self, param: int | float | Self) -> Self:
+        """Subtracts param from self creating a new parameter.
+
+        :param param: The parameter to be used for subtraction.
+        :return: A new param with the value of self - param.
+        """
+        return self + (-param)
+
+    def __rsub__(self, param: int | float | Self) -> Self:
+        """Subtracts self from param creating a new parameter.
+
+        :param param: The parameter from which self will be subtracted.
+        :return: A new parameter with value param - self.
+        """
+        return (-self) + param
+
     def __mul__(self, param: int | float | Self) -> Self:
         """Multiplies a given parameter by the given object.
 
@@ -93,6 +116,9 @@ class Parameter:
         out_param._backward = _backward
 
         return out_param
+
+    # TODO: add __rmul__
+    # TODO: add div
 
     def tanh(self) -> Self:
         """Applies the tanh operation on the given parameter, creating a new
