@@ -67,6 +67,15 @@ class Parameter:
 
         return out_param
 
+    def __radd__(self, param: int | float | Self) -> Self:
+        """Performs the addition of param + self.
+
+        :param param: The value to be added with self.
+        :return: A new parameter obtained from adding
+        the parameter  with self.
+        """
+        return self + param
+
     def __mul__(self, param: int | float | Self) -> Self:
         """Multiplies a given parameter by the given object.
 
