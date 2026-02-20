@@ -4,7 +4,6 @@
 import math
 from collections.abc import Callable
 from enum import Enum
-from typing import Self
 
 
 class Operation(str, Enum):
@@ -13,10 +12,10 @@ class Operation(str, Enum):
     """
 
     MANUAL_CREATION = ''
-    SUM: str = '+'
-    MUL: str = '*'
-    TANH: str = 'tanh'
-    RELU: str = 'relu'
+    SUM = '+'
+    MUL = '*'
+    TANH = 'tanh'
+    RELU = 'relu'
 
 
 class Parameter:
@@ -24,7 +23,7 @@ class Parameter:
     """
 
     def __init__(self, value: int | float,
-                 _prev: tuple[Self] | None = None,
+                 _prev: tuple['Parameter', ...] | None = None,
                  _op: str | Operation = Operation.MANUAL_CREATION) -> None:
         """Creates a new `Parameter` instance.
 
@@ -40,7 +39,7 @@ class Parameter:
         self._op = _op
 
         self.grad = 0.0
-        self._backward: Callable = lambda: None
+        self._backward: Callable[[], None] = lambda: None
 
     def __repr__(self) -> str:
         """Provides a string representation of the parameter object.
@@ -49,25 +48,26 @@ class Parameter:
         """
         return f'Parameter({self.value})'
 
-    def __add__(self, param: int | float | Self) -> Self:
+    def __add__(self, param: 'int | float | Parameter') -> 'Parameter':
         """Adds a given parameter to the current object.
 
         :param param: The parameter to be added.
         :return: A new parameter with the value of the sum.
         """
-        param = Parameter(param) if not isinstance(param, Parameter) else param
-        out_param = Parameter(self.value + param.value,
-                              _prev=(self, param), _op=Operation.SUM)
+        input_param = (Parameter(param)
+                       if not isinstance(param, Parameter) else param)
+        out_param = Parameter(self.value + input_param.value,
+                              _prev=(self, input_param), _op=Operation.SUM)
 
         def _backward():
             self.grad += out_param.grad
-            param.grad += out_param.grad
+            input_param.grad += out_param.grad
 
         out_param._backward = _backward
 
         return out_param
 
-    def __radd__(self, param: int | float | Self) -> Self:
+    def __radd__(self, param: 'int | float | Parameter') -> 'Parameter':
         """Performs the addition of param + self.
 
         :param param: The value to be added with self.
@@ -76,14 +76,14 @@ class Parameter:
         """
         return self + param
 
-    def __neg__(self) -> Self:
+    def __neg__(self) -> 'Parameter':
         """Multiplies the current value by -1.
 
         :return: The negative value of the current parameter.
         """
         return self * -1
 
-    def __sub__(self, param: int | float | Self) -> Self:
+    def __sub__(self, param: 'int | float | Parameter') -> 'Parameter':
         """Subtracts param from self creating a new parameter.
 
         :param param: The parameter to be used for subtraction.
@@ -91,7 +91,7 @@ class Parameter:
         """
         return self + (-param)
 
-    def __rsub__(self, param: int | float | Self) -> Self:
+    def __rsub__(self, param: 'int | float | Parameter') -> 'Parameter':
         """Subtracts self from param creating a new parameter.
 
         :param param: The parameter from which self will be subtracted.
@@ -99,7 +99,7 @@ class Parameter:
         """
         return (-self) + param
 
-    def __mul__(self, param: int | float | Self) -> Self:
+    def __mul__(self, param: 'int | float | Parameter') -> 'Parameter':
         """Multiplies a given parameter by the given object.
 
         :param param: The parameter to be multiplied with self.
@@ -120,7 +120,7 @@ class Parameter:
     # TODO: add __rmul__
     # TODO: add div
 
-    def tanh(self) -> Self:
+    def tanh(self) -> 'Parameter':
         """Applies the tanh operation on the given parameter, creating a new
         one as a result.
 
@@ -137,7 +137,7 @@ class Parameter:
 
         return out_param
 
-    def relu(self) -> Self:
+    def relu(self) -> 'Parameter':
         """Applies the ReLU operation on the given parameter, creating a
         new one as a result.
 
@@ -165,7 +165,7 @@ class Parameter:
         self.grad = 1.0
 
         topological_graph: list[Parameter] = []
-        visited = set()
+        visited: set[Parameter] = set()
 
         def build_topological_graph(param: Parameter):
             if param in visited:
