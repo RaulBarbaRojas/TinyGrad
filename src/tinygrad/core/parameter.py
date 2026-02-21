@@ -135,7 +135,16 @@ class Parameter:
 
         return out_param
 
-    # TODO: add __truediv__
+    def __truediv__(self, param: 'int | float | Parameter') -> 'Parameter':
+        """Implements the division operation with automatic gradient
+        calculation.
+
+        :param param: The parameter to be used as right operand of the
+        division.
+        :return: The new parameter obtained from the div operation.
+        """
+        return self * (param ** -1)
+
     # TODO: add __rtruediv__
     # TODO: add __rmul__
 
