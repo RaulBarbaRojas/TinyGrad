@@ -16,6 +16,7 @@ class Operation(str, Enum):
     MUL = '*'
     TANH = 'tanh'
     RELU = 'relu'
+    POWER = 'pow'
 
 
 class Parameter:
@@ -117,8 +118,26 @@ class Parameter:
 
         return out_param
 
+    def __pow__(self, exp: int | float) -> 'Parameter':
+        """Performs the power operation with the given exponent.
+
+        :param exp: The exponent to be used in the pow operation.
+        :return: A new parameter with grad tracking as obtained from the
+        power operation.
+        """
+        out_param = Parameter(self.value ** exp, _prev=(self, ),
+                              _op=(Operation.POWER))
+
+        def _backward() -> None:
+            self.grad += exp * (self.value ** (exp - 1)) * out_param.grad
+
+        out_param._backward = _backward
+
+        return out_param
+
+    # TODO: add __truediv__
+    # TODO: add __rtruediv__
     # TODO: add __rmul__
-    # TODO: add div
 
     def tanh(self) -> 'Parameter':
         """Applies the tanh operation on the given parameter, creating a new
