@@ -12,7 +12,7 @@ authors = [
     {name = "Raúl Barba Rojas", email = "barbarojasraul@gmail.com"}
 ]
 license = "MIT"
-keywords = ["autograd", "grad", "backpropagation", "neural networks"]
+keywords = ["tinygrad", "autograd", "grad", "backpropagation", "neural networks"]
 dependencies = []
 
 [tool.hatch.build.targets.wheel]
