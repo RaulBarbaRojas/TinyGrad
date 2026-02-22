@@ -56,3 +56,6 @@ class Module(ABC):
 
     def __call__(self, *args: Any, **kwds: Any) -> Any:
         return self.forward(*args, **kwds)
+
+    # TODO: Implement freezable weights
+    # TODO: Implement module load/store
