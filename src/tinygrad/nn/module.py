@@ -14,15 +14,14 @@ class Module(ABC):
     def __init__(self) -> None:
         """Creates a tinygrad neural network instance.
         """
-        self._params: dict[str, list[Parameter]] = {}
+        self._params: dict[str, frozenset[Parameter]] = {}
 
-    @property
-    def parameters(self) -> list[Parameter]:
+    def parameters(self) -> frozenset[Parameter]:
         """Retrieves the parameters of the defined neural network.
         """
-        return [param
-                for module_params in self._params.values()
-                for param in module_params]
+        return frozenset([param
+                         for module_params in self._params.values()
+                         for param in module_params])
 
     def __setattr__(self, name: str, value: Any) -> None:
         """Sets a given value as an attribute of the module.
@@ -31,9 +30,9 @@ class Module(ABC):
         :param value: The value of the attribute.
         """
         if isinstance(value, Module):
-            self._params[name] = value.parameters
+            self._params[name] = value.parameters()
         elif isinstance(value, Parameter):
-            self._params[name] = [value]
+            self._params[name] = frozenset([value])
 
         super().__setattr__(name, value)
 
