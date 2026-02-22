@@ -145,7 +145,18 @@ class Parameter:
         """
         return self * (param ** -1)
 
-    # TODO: add __rtruediv__
+    def __rtruediv__(self, param: 'int | float | Parameter') -> 'Parameter':
+        """Implements the division of of the given left operand with self.
+
+        :param param: The left-side operand of the division.
+        :return: A new parameter obtained from the division of a left operand
+        with self (right-side operand).
+        """
+        left_operand = (Parameter(param) if not isinstance(param, Parameter)
+                        else param)
+
+        return left_operand / self
+
     # TODO: add __rmul__
 
     def tanh(self) -> 'Parameter':
