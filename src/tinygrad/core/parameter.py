@@ -118,6 +118,14 @@ class Parameter:
 
         return out_param
 
+    def __rmul__(self, other: 'int | float | Parameter') -> 'Parameter':
+        """Implements the right-side parameter multiplication operation.
+
+        :param other: The left-side operand of the product operation.
+        :return: The parameter obtained from the product operation.
+        """
+        return self * other
+
     def __pow__(self, exp: int | float) -> 'Parameter':
         """Performs the power operation with the given exponent.
 
@@ -156,8 +164,6 @@ class Parameter:
                         else param)
 
         return left_operand / self
-
-    # TODO: add __rmul__
 
     def tanh(self) -> 'Parameter':
         """Applies the tanh operation on the given parameter, creating a new
