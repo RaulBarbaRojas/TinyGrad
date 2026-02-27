@@ -4,7 +4,7 @@
 from abc import ABC, abstractmethod
 from typing import Any
 
-from ..core import Parameter
+from tinygrad.core import Parameter
 
 
 class Module(ABC):
@@ -23,6 +23,12 @@ class Module(ABC):
                          for module_params in self._params.values()
                          for param in module_params])
 
+    def zero_grad(self) -> None:
+        """Zeroes-out the gradients of all the module's params.
+        """
+        for param in self.parameters():
+            param.grad = 0
+
     def __setattr__(self, name: str, value: Any) -> None:
         """Sets a given value as an attribute of the module.
 
@@ -31,6 +37,16 @@ class Module(ABC):
         """
         if isinstance(value, Module):
             self._params[name] = value.parameters()
+        elif isinstance(value, list):
+            list_params: list[Parameter] = []
+            for item in value:
+                if isinstance(item, Parameter):
+                    list_params.append(item)
+                elif isinstance(item, Module):
+                    list_params.extend(list(item.parameters()))
+
+            if len(list_params) > 0:
+                self._params[name] = frozenset(list_params)
         elif isinstance(value, Parameter):
             self._params[name] = frozenset([value])
 
@@ -56,6 +72,3 @@ class Module(ABC):
 
     def __call__(self, *args: Any, **kwds: Any) -> Any:
         return self.forward(*args, **kwds)
-
-    # TODO: Implement freezable weights
-    # TODO: Implement module load/store

@@ -225,7 +225,3 @@ class Parameter:
         build_topological_graph(self)
         for param in reversed(topological_graph):
             param._backward()
-
-    # TODO: Implement sigmoid
-    # TODO: Implement softmax
-    # TODO: Implement requires_grad
