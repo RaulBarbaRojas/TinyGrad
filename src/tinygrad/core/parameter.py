@@ -17,6 +17,7 @@ class Operation(str, Enum):
     TANH = 'tanh'
     RELU = 'relu'
     POWER = 'pow'
+    ABS = 'abs'
 
 
 class Parameter:
@@ -194,6 +195,22 @@ class Parameter:
 
         def _backward() -> None:
             self.grad += (out_param.value > 0) * out_param.grad
+
+        out_param._backward = _backward
+
+        return out_param
+
+    def abs(self) -> 'Parameter':
+        """Creates a new parameter with the absolute value of self.
+
+        :return: A new param containing the absolute value of self.
+        """
+        out_param = Parameter(abs(self.value), _prev=(self, ),
+                              _op=Operation.ABS)
+
+        def _backward() -> None:
+            sign = -1.0 if self.value < 0 else 1.0
+            self.grad += sign * out_param.grad
 
         out_param._backward = _backward
 
