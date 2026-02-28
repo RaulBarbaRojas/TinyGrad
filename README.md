@@ -62,7 +62,7 @@ X = [2.00, 2.10, 2.20, 2.30, 2.40]
 y = [3.00, 3.10, 3.13, 3.16, 3.19]
 
 epochs = 2000
-model = Linear(input_features=1, output_features=1)
+model = Linear(input_features=1, output_features=1, activation_fn=ReLU())
 model.neurons[0].weights[0].value = 0.5  # Using positive weight to prevent Dying ReLU
 optimizer = SGD(model.parameters(), lr=1e-2)
 loss_fn = MSE()
