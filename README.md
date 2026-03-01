@@ -27,7 +27,7 @@ Inspired by:
 
 You can run the following command to install `gradlite` in your system/virtual environment:
 
-`pip install gradlite@git+https://github.com/RaulBarbaRojas/gradlite.git`
+`pip install gradlite`
 
 ## 🧩 Example Usage
 
