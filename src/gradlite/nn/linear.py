@@ -1,15 +1,15 @@
-"""Implements a linear layer in tinygrad.
+"""Implements a linear layer in gradlite.
 """
 
 from random import uniform
 
-from tinygrad.core.parameter import Parameter
-from tinygrad.nn.activations import Identity
-from tinygrad.nn.module import Module
+from gradlite.core.parameter import Parameter
+from gradlite.nn.activations import Identity
+from gradlite.nn.module import Module
 
 
 class Neuron(Module):
-    """Implements the traditional concept of DL neuron in tinygrad.
+    """Implements the traditional concept of DL neuron in gradlite.
     """
 
     def __init__(self, input_features: int,
@@ -43,12 +43,12 @@ class Neuron(Module):
 
 
 class Linear(Module):
-    """Implements a linear layer in tinygrad.
+    """Implements a linear layer in gradlite.
     """
 
     def __init__(self, input_features: int, output_features: int,
                  activation_fn: Module | None = None) -> None:
-        """Creates a linear layer in tinygrad.
+        """Creates a linear layer in gradlite.
 
         :param input_features: The number of input features of the layer.
         :param output_features: The number of output features of the layer.

@@ -1,14 +1,14 @@
-"""Implements an abstract definition of a tinygrad module optimizer.
+"""Implements an abstract definition of a gradlite module optimizer.
 """
 
 from abc import ABC, abstractmethod
 from collections.abc import Iterable
 
-from tinygrad.core.parameter import Parameter
+from gradlite.core.parameter import Parameter
 
 
 class Optimizer(ABC):
-    """Provides a template of what a tinygrad optimizer looks like.
+    """Provides a template of what a gradlite optimizer looks like.
     """
 
     def __init__(self, params: Iterable[Parameter], lr: float = 1e-4) -> None:

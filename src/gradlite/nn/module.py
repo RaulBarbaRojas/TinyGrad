@@ -1,18 +1,18 @@
-"""Implements the most basic structure to define tinygrad nnets.
+"""Implements the most basic structure to define gradlite nnets.
 """
 
 from abc import ABC, abstractmethod
 from typing import Any
 
-from tinygrad.core import Parameter
+from gradlite.core import Parameter
 
 
 class Module(ABC):
-    """Defines a nnet in tinygrad.
+    """Defines a nnet in gradlite.
     """
 
     def __init__(self) -> None:
-        """Creates a tinygrad neural network instance.
+        """Creates a gradlite neural network instance.
         """
         self._params: dict[str, frozenset[Parameter]] = {}
 

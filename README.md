@@ -1,8 +1,8 @@
-# 🚀 TinyGrad
+# 🚀 GradLite
 
 > A tiny, elegant automatic differentiation engine built from scratch.
 
-TinyGrad is a lightweight module for **automatic gradient computation**, the core mechanism behind training neural networks using **backpropagation**.
+GradLite is a lightweight module for **automatic gradient computation**, the core mechanism behind training neural networks using **backpropagation**.
 
 Inspired by:
 - 🔬 [MicroGrad](https://github.com/karpathy/micrograd)
@@ -25,16 +25,16 @@ Inspired by:
 
 ## 📦 Installation
 
-You can run the following command to install `tinygrad` in your system/virtual environment:
+You can run the following command to install `gradlite` in your system/virtual environment:
 
-`pip install tinygrad@git+https://github.com/RaulBarbaRojas/TinyGrad.git`
+`pip install gradlite@git+https://github.com/RaulBarbaRojas/gradlite.git`
 
 ## 🧩 Example Usage
 
-The usage of `tinygrad` to build expressions and run backpropagation (automatic differentation) is shown next:
+The usage of `gradlite` to build expressions and run backpropagation (automatic differentation) is shown next:
 
 ```python
-from tinygrad.core import Parameter
+from gradlite.core import Parameter
 
 a = Parameter(2.0)
 b = Parameter(0.3)
@@ -50,13 +50,13 @@ print(f'grad_b={b.grad:.4f}')
 print(f'grad_c={c.grad:.4f}')
 ```
 
-An example training loop of tinygrad is given next:
+An example training loop of `gradlite` is given next:
 
 ```python
-from tinygrad.nn.linear import Linear
-from tinygrad.nn.activations import ReLU
-from tinygrad.nn.loss.mse import MSE
-from tinygrad.optimizer.sgd import SGD
+from gradlite.nn.linear import Linear
+from gradlite.nn.activations import ReLU
+from gradlite.nn.loss.mse import MSE
+from gradlite.optimizer.sgd import SGD
 
 X = [2.00, 2.10, 2.20, 2.30, 2.40]
 y = [3.00, 3.10, 3.13, 3.16, 3.19]

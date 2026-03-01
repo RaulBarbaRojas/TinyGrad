@@ -3,12 +3,12 @@
 
 from typing import Literal
 
-from tinygrad.core import Parameter
-from tinygrad.nn.module import Module
+from gradlite.core import Parameter
+from gradlite.nn.module import Module
 
 
 class MSE(Module):
-    """The MSE loss function implemented as a tinygrad's Module.
+    """The MSE loss function implemented as a gradlite's Module.
     """
 
     def __init__(self, agg_fn: Literal['sum', 'mean'] = 'mean') -> None:

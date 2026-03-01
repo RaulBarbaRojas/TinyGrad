@@ -1,14 +1,14 @@
-"""Implements the Mean Absolute Error (MAE) loss function in tinygrad.
+"""Implements the Mean Absolute Error (MAE) loss function in gradlite.
 """
 
 from typing import Literal
 
-from tinygrad.core.parameter import Parameter
-from tinygrad.nn.module import Module
+from gradlite.core.parameter import Parameter
+from gradlite.nn.module import Module
 
 
 class MAE(Module):
-    """An implementation of the Mean Absolute Error loss in tinygrad.
+    """An implementation of the Mean Absolute Error loss in gradlite.
     """
 
     def __init__(self, agg_fn: Literal['sum', 'mean'] = 'mean') -> None:

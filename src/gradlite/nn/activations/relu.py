@@ -1,8 +1,8 @@
-"""Implements the ReLU activation function as a tinygrad.nn.Module.
+"""Implements the ReLU activation function as a gradlite.nn.Module.
 """
 
-from tinygrad.core import Parameter
-from tinygrad.nn.module import Module
+from gradlite.core import Parameter
+from gradlite.nn.module import Module
 
 
 class ReLU(Module):

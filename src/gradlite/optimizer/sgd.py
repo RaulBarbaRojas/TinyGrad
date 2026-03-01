@@ -1,11 +1,11 @@
-"""Implements default SGD optimizer in tinygrad.
+"""Implements default SGD optimizer in gradlite.
 """
 
-from tinygrad.optimizer.base import Optimizer
+from gradlite.optimizer.base import Optimizer
 
 
 class SGD(Optimizer):
-    """Implements the SGD optimizer in tinygrad.
+    """Implements the SGD optimizer in gradlite.
     """
 
     def step(self) -> None:
