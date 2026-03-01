@@ -15,6 +15,11 @@ license = { file = "LICENSE.txt" }
 keywords = ["gradlite", "autograd", "grad", "backpropagation", "neural networks"]
 dependencies = []
 
+[project.optional-dependencies]
+viz = [
+    "graphviz>=0.21",
+]
+
 [tool.hatch.build.targets.wheel]
 packages = ["src/gradlite"]
 
